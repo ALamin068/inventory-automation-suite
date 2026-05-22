@@ -1,0 +1,29 @@
+name: Automation Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  selenium-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run Selenium Tests
+        run: mvn test
