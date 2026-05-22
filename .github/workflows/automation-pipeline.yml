@@ -1,9 +1,8 @@
 name: Automation Pipeline
 
 on:
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types: [run-automation]
 
 jobs:
 
