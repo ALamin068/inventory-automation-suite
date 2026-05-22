@@ -29,13 +29,12 @@ jobs:
         run: |
           git clone https://github.com/ALamin068/inventoryapp.git
 
-            - name: Start Spring Boot Application
+      - name: Start Spring Boot Application
         run: |
-          git clone https://github.com/ALamin068/inventoryapp.git
           cd inventoryapp
           chmod +x mvnw
           nohup ./mvnw spring-boot:run > app.log 2>&1 &
-          
+
           echo "Waiting for application to start..."
 
           for i in {1..30}; do
