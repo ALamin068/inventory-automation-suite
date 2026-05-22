@@ -13,7 +13,7 @@ jobs:
 
     steps:
 
-      - name: Checkout Automation Repo
+      - name: Checkout Automation Repository
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -28,6 +28,7 @@ jobs:
       - name: Clone Application Repository
         run: |
           git clone https://github.com/ALamin068/inventoryapp.git
+
       - name: Start Spring Boot Application
         run: |
           cd inventoryapp
@@ -51,5 +52,6 @@ jobs:
           echo "===== APPLICATION LOGS ====="
 
           cat app.log
+
       - name: Run Selenium Tests
         run: mvn test
