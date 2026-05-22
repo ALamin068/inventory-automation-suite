@@ -29,12 +29,26 @@ jobs:
         run: |
           git clone https://github.com/ALamin068/inventoryapp.git
 
-      - name: Start Spring Boot Application
+            - name: Start Spring Boot Application
         run: |
+          git clone https://github.com/ALamin068/inventoryapp.git
           cd inventoryapp
           chmod +x mvnw
-          ./mvnw spring-boot:run &
-          sleep 40
+          nohup ./mvnw spring-boot:run > app.log 2>&1 &
+          
+          echo "Waiting for application to start..."
+
+          for i in {1..30}; do
+            if curl -s http://localhost:8080 > /dev/null; then
+              echo "Application started successfully!"
+              break
+            fi
+
+            echo "Still waiting..."
+            sleep 5
+          done
+
+          cat app.log
 
       - name: Run Selenium Tests
         run: mvn test
