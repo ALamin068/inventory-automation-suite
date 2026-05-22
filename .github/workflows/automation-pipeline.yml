@@ -13,7 +13,7 @@ jobs:
 
     steps:
 
-      - name: Checkout Code
+      - name: Checkout Automation Repo
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -24,6 +24,17 @@ jobs:
 
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
+
+      - name: Clone Application Repository
+        run: |
+          git clone https://github.com/ALamin068/inventoryapp.git
+
+      - name: Start Spring Boot Application
+        run: |
+          cd inventoryapp
+          chmod +x mvnw
+          ./mvnw spring-boot:run &
+          sleep 40
 
       - name: Run Selenium Tests
         run: mvn test
