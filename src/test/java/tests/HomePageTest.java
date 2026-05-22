@@ -26,7 +26,7 @@ options.addArguments("--disable-dev-shm-usage");
 
 WebDriver driver = new ChromeDriver(options);
 
-        driver.get("http://localhost");
+        driver.get("http://localhost:8080");
 
         String bodyText =
                 driver.findElement(By.tagName("body")).getText();

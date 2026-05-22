@@ -28,26 +28,28 @@ jobs:
       - name: Clone Application Repository
         run: |
           git clone https://github.com/ALamin068/inventoryapp.git
-
       - name: Start Spring Boot Application
         run: |
           cd inventoryapp
+
           chmod +x mvnw
-          nohup ./mvnw spring-boot:run > app.log 2>&1 &
 
-          echo "Waiting for application to start..."
+          echo "Starting Spring Boot application..."
 
-          for i in {1..30}; do
-            if curl -s http://localhost:8080 > /dev/null; then
-              echo "Application started successfully!"
-              break
-            fi
+          ./mvnw spring-boot:run > app.log 2>&1 &
 
-            echo "Still waiting..."
-            sleep 5
-          done
+          APP_PID=$!
+
+          echo "Spring Boot PID: $APP_PID"
+
+          sleep 60
+
+          echo "Checking if application is reachable..."
+
+          curl http://localhost:8080 || true
+
+          echo "===== APPLICATION LOGS ====="
 
           cat app.log
-
       - name: Run Selenium Tests
         run: mvn test
